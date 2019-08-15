@@ -74,18 +74,25 @@ require_once('PHPImageWorkshop/ImageWorkshop.php');
 
 
 
-// / Initialization of layers you need
-$pinguLayer = ImageWorkshop::initFromPath(__DIR__.'/original_image.jpg');
+for($i=1; $i<10; $i++) {
+
+	// / Initialization of layers you need
+	$pinguLayer = ImageWorkshop::initFromPath(__DIR__.'/original_image.jpg');
 	$emptyForDistort = imagecreate($pinguLayer->getWidth(), $pinguLayer->getHeight());
 	$emptyForDistort = ImageWorkshop::initFromResourceVar($emptyForDistort);
 	$imgDisplay = distort($pinguLayer->getWidth(),$pinguLayer->getHeight(),$pinguLayer->getResult(),$emptyForDistort->getResult());
 	$pinguLayer = ImageWorkshop::initFromResourceVar($imgDisplay);
-// Saving the result in a folder
-$pinguLayer->save(__DIR__."/", "result_image.jpg", true, null, 95);
+	// Saving the result in a folder
+	$pinguLayer->save(__DIR__."/", "result_image".$i.".jpg", true, null, 95);
+	
+	?>
+		<img src="result_image<?php echo $i; ?>.jpg">
+	<?php 
+}
 
 
 ?>
 
-<img src="result_image.jpg">
+
 
 
